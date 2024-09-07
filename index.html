@@ -22,11 +22,9 @@
             justify-content: center;
             color: white;
             font-family: Arial, sans-serif;
-            transition: opacity 0.5s ease-in-out;
-            text-align: center;
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
+            text-align: center;
         }
         #banner1 {
             background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
@@ -34,12 +32,10 @@
         }
         #banner2 {
             background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            opacity: 0;
             z-index: 2;
         }
         #banner3 {
             background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            opacity: 0;
             z-index: 1;
         }
         .content {
@@ -59,7 +55,7 @@
             text-decoration: none;
         }
         #spacer {
-            height: 300vh;
+            height: 200vh;
         }
     </style>
 </head>
@@ -91,14 +87,21 @@
         window.addEventListener('scroll', function() {
             var scrollPosition = window.scrollY;
             var windowHeight = window.innerHeight;
+            var banners = document.querySelectorAll('.banner');
             
-            var opacity1 = 1 - (scrollPosition / windowHeight);
-            var opacity2 = (scrollPosition / windowHeight) - 1;
-            var opacity3 = (scrollPosition / windowHeight) - 2;
-            
-            document.getElementById('banner1').style.opacity = Math.max(0, Math.min(1, opacity1));
-            document.getElementById('banner2').style.opacity = Math.max(0, Math.min(1, opacity2));
-            document.getElementById('banner3').style.opacity = Math.max(0, Math.min(1, opacity3));
+            banners.forEach(function(banner, index) {
+                var bannerTop = banner.offsetTop;
+                var bannerHeight = banner.offsetHeight;
+                var scrollPercentage = (scrollPosition - bannerTop + windowHeight) / (bannerHeight + windowHeight);
+                
+                if (scrollPercentage > 0 && scrollPercentage < 1) {
+                    banner.style.opacity = 1 - scrollPercentage;
+                } else if (scrollPercentage <= 0) {
+                    banner.style.opacity = 1;
+                } else {
+                    banner.style.opacity = 0;
+                }
+            });
         });
     </script>
 </body>
