@@ -11,7 +11,7 @@
             height: 100%;
         }
         .banner-container {
-            height: 300vh; /* Three times the viewport height */
+            height: 300vh;
             position: relative;
             overflow: hidden;
         }
@@ -29,15 +29,7 @@
             text-align: center;
             position: sticky;
             top: 0;
-        }
-        #banner1 {
-            background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-        }
-        #banner2 {
-            background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-        }
-        #banner3 {
-            background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            transition: background-image 0.5s ease-in-out;
         }
         .content {
             background: rgba(0, 0, 0, 0.5);
@@ -66,7 +58,7 @@
 </head>
 <body>
     <div class="banner-container">
-        <div id="banner1" class="banner">
+        <div id="banner" class="banner">
             <div class="content">
                 <h1>Welcome to Coffee Collective</h1>
                 <p>Discover our premium coffee selection</p>
@@ -78,18 +70,25 @@
     </div>
 
     <script>
-        const bannerContainer = document.querySelector('.banner-container');
-        const banner = document.querySelector('#banner1');
-        const trigger2 = document.querySelector('#trigger2');
-        const trigger3 = document.querySelector('#trigger3');
+        const banner = document.getElementById('banner');
+        const trigger2 = document.getElementById('trigger2');
+        const trigger3 = document.getElementById('trigger3');
+
+        const images = [
+            'https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        ];
+
+        banner.style.backgroundImage = `url('${images[0]}')`;
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     if (entry.target === trigger2) {
-                        banner.style.backgroundImage = getComputedStyle(document.querySelector('#banner2')).backgroundImage;
+                        banner.style.backgroundImage = `url('${images[1]}')`;
                     } else if (entry.target === trigger3) {
-                        banner.style.backgroundImage = getComputedStyle(document.querySelector('#banner3')).backgroundImage;
+                        banner.style.backgroundImage = `url('${images[2]}')`;
                     }
                 }
             });
