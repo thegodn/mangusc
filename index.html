@@ -9,17 +9,18 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            overflow-x: hidden;
         }
         .banner-container {
             height: 300vh;
             position: relative;
-            overflow: hidden;
         }
         .banner {
             height: 100vh;
             width: 100%;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,9 +28,15 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            position: sticky;
-            top: 0;
-            transition: background-image 0.5s ease-in-out;
+        }
+        #banner1 {
+            background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+        #banner2 {
+            background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+        #banner3 {
+            background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         }
         .content {
             background: rgba(0, 0, 0, 0.5);
@@ -46,56 +53,33 @@
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            display: inline-block;
         }
-        .trigger {
-            position: absolute;
-            height: 100vh;
-            width: 100%;
-        }
-        #trigger2 { top: 100vh; }
-        #trigger3 { top: 200vh; }
     </style>
 </head>
 <body>
     <div class="banner-container">
-        <div id="banner" class="banner">
+        <div id="banner1" class="banner">
             <div class="content">
                 <h1>Welcome to Coffee Collective</h1>
                 <p>Discover our premium coffee selection</p>
                 <a href="#" class="button">Explore Our Beans</a>
             </div>
         </div>
-        <div id="trigger2" class="trigger"></div>
-        <div id="trigger3" class="trigger"></div>
+        <div id="banner2" class="banner">
+            <div class="content">
+                <h1>Artisanal Roasting</h1>
+                <p>Experience the rich flavors of our carefully roasted beans</p>
+                <a href="#" class="button">Learn Our Process</a>
+            </div>
+        </div>
+        <div id="banner3" class="banner">
+            <div class="content">
+                <h1>From Farm to Cup</h1>
+                <p>Sustainably sourced and ethically produced coffee</p>
+                <a href="#" class="button">Our Story</a>
+            </div>
+        </div>
     </div>
-
-    <script>
-        const banner = document.getElementById('banner');
-        const trigger2 = document.getElementById('trigger2');
-        const trigger3 = document.getElementById('trigger3');
-
-        const images = [
-            'https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            'https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        ];
-
-        banner.style.backgroundImage = `url('${images[0]}')`;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (entry.target === trigger2) {
-                        banner.style.backgroundImage = `url('${images[1]}')`;
-                    } else if (entry.target === trigger3) {
-                        banner.style.backgroundImage = `url('${images[2]}')`;
-                    }
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(trigger2);
-        observer.observe(trigger3);
-    </script>
 </body>
 </html>
