@@ -9,7 +9,12 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow-x: hidden;
+            overflow: hidden;
+        }
+        #container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
         }
         .banner {
             height: 100vh;
@@ -22,21 +27,17 @@
             justify-content: center;
             color: white;
             font-family: Arial, sans-serif;
-            position: sticky;
-            top: 0;
+            scroll-snap-align: start;
             text-align: center;
         }
         #banner1 {
             background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            z-index: 3;
         }
         #banner2 {
             background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            z-index: 2;
         }
         #banner3 {
             background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            z-index: 1;
         }
         .content {
             background: rgba(0, 0, 0, 0.5);
@@ -54,53 +55,51 @@
             cursor: pointer;
             text-decoration: none;
         }
-        #spacer {
-            height: 200vh;
-        }
     </style>
 </head>
 <body>
-    <div id="banner1" class="banner">
-        <div class="content">
-            <h1>Welcome to Coffee Collective</h1>
-            <p>Discover our premium coffee selection</p>
-            <a href="#" class="button">Explore Our Beans</a>
+    <div id="container">
+        <div id="banner1" class="banner">
+            <div class="content">
+                <h1>Welcome to Coffee Collective</h1>
+                <p>Discover our premium coffee selection</p>
+                <a href="#" class="button">Explore Our Beans</a>
+            </div>
+        </div>
+        <div id="banner2" class="banner">
+            <div class="content">
+                <h1>Artisanal Roasting</h1>
+                <p>Experience the rich flavors of our carefully roasted beans</p>
+                <a href="#" class="button">Learn Our Process</a>
+            </div>
+        </div>
+        <div id="banner3" class="banner">
+            <div class="content">
+                <h1>From Farm to Cup</h1>
+                <p>Sustainably sourced and ethically produced coffee</p>
+                <a href="#" class="button">Our Story</a>
+            </div>
         </div>
     </div>
-    <div id="banner2" class="banner">
-        <div class="content">
-            <h1>Artisanal Roasting</h1>
-            <p>Experience the rich flavors of our carefully roasted beans</p>
-            <a href="#" class="button">Learn Our Process</a>
-        </div>
-    </div>
-    <div id="banner3" class="banner">
-        <div class="content">
-            <h1>From Farm to Cup</h1>
-            <p>Sustainably sourced and ethically produced coffee</p>
-            <a href="#" class="button">Our Story</a>
-        </div>
-    </div>
-    <div id="spacer"></div>
 
     <script>
-        window.addEventListener('scroll', function() {
-            var scrollPosition = window.scrollY;
-            var windowHeight = window.innerHeight;
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = document.getElementById('container');
             var banners = document.querySelectorAll('.banner');
-            
-            banners.forEach(function(banner, index) {
-                var bannerTop = banner.offsetTop;
-                var bannerHeight = banner.offsetHeight;
-                var scrollPercentage = (scrollPosition - bannerTop + windowHeight) / (bannerHeight + windowHeight);
-                
-                if (scrollPercentage > 0 && scrollPercentage < 1) {
-                    banner.style.opacity = 1 - scrollPercentage;
-                } else if (scrollPercentage <= 0) {
-                    banner.style.opacity = 1;
-                } else {
-                    banner.style.opacity = 0;
-                }
+            var currentBanner = 0;
+
+            function scrollToNextBanner() {
+                currentBanner = (currentBanner + 1) % banners.length;
+                banners[currentBanner].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Simulate scroll every 5 seconds
+            setInterval(scrollToNextBanner, 5000);
+
+            // Optional: Allow manual scrolling
+            container.addEventListener('scroll', function() {
+                clearInterval(scrollInterval);
+                currentBanner = Math.round(container.scrollTop / container.clientHeight);
             });
         });
     </script>
