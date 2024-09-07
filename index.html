@@ -9,6 +9,10 @@
             margin: 0;
             padding: 0;
             height: 100%;
+        }
+        .banner-container {
+            height: 300vh; /* Three times the viewport height */
+            position: relative;
             overflow: hidden;
         }
         .banner {
@@ -23,15 +27,11 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            position: absolute;
+            position: sticky;
             top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
         }
         #banner1 {
             background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            opacity: 1;
         }
         #banner2 {
             background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
@@ -55,53 +55,48 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .trigger {
+            position: absolute;
+            height: 100vh;
+            width: 100%;
+        }
+        #trigger2 { top: 100vh; }
+        #trigger3 { top: 200vh; }
     </style>
 </head>
 <body>
-    <div id="banner1" class="banner">
-        <div class="content">
-            <h1>Welcome to Coffee Collective</h1>
-            <p>Discover our premium coffee selection</p>
-            <a href="#" class="button">Explore Our Beans</a>
+    <div class="banner-container">
+        <div id="banner1" class="banner">
+            <div class="content">
+                <h1>Welcome to Coffee Collective</h1>
+                <p>Discover our premium coffee selection</p>
+                <a href="#" class="button">Explore Our Beans</a>
+            </div>
         </div>
-    </div>
-    <div id="banner2" class="banner">
-        <div class="content">
-            <h1>Artisanal Roasting</h1>
-            <p>Experience the rich flavors of our carefully roasted beans</p>
-            <a href="#" class="button">Learn Our Process</a>
-        </div>
-    </div>
-    <div id="banner3" class="banner">
-        <div class="content">
-            <h1>From Farm to Cup</h1>
-            <p>Sustainably sourced and ethically produced coffee</p>
-            <a href="#" class="button">Our Story</a>
-        </div>
+        <div id="trigger2" class="trigger"></div>
+        <div id="trigger3" class="trigger"></div>
     </div>
 
     <script>
-        window.addEventListener('message', function(event) {
-            if (event.data.type === 'scroll') {
-                updateBanners(event.data.scrollPercentage);
-            }
-        }, false);
+        const bannerContainer = document.querySelector('.banner-container');
+        const banner = document.querySelector('#banner1');
+        const trigger2 = document.querySelector('#trigger2');
+        const trigger3 = document.querySelector('#trigger3');
 
-        function updateBanners(scrollPercentage) {
-            var banners = document.querySelectorAll('.banner');
-            var bannerIndex = Math.min(Math.floor(scrollPercentage * 3), 2);
-
-            banners.forEach((banner, index) => {
-                if (index === bannerIndex) {
-                    banner.style.opacity = 1;
-                } else {
-                    banner.style.opacity = 0;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target === trigger2) {
+                        banner.style.backgroundImage = getComputedStyle(document.querySelector('#banner2')).backgroundImage;
+                    } else if (entry.target === trigger3) {
+                        banner.style.backgroundImage = getComputedStyle(document.querySelector('#banner3')).backgroundImage;
+                    }
                 }
             });
-        }
+        }, { threshold: 0.5 });
 
-        // Notify parent that iframe is ready
-        window.parent.postMessage({ type: 'iframeReady' }, '*');
+        observer.observe(trigger2);
+        observer.observe(trigger3);
     </script>
 </body>
 </html>
