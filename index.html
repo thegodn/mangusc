@@ -1,134 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Bean Sliding Banner</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        #container {
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        #slider {
-            height: 300%;
-            transition: transform 0.5s ease-out;
-        }
-        .banner {
-            height: 33.33%;
-            width: 100%;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        #banner1 { background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
-        #banner2 { background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
-        #banner3 { background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); }
-        .content {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-        .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <div id="container">
-        <div id="slider">
-            <div id="banner1" class="banner">
-                <div class="content">
-                    <h1>Welcome to Coffee Collective</h1>
-                    <p>Discover our premium coffee selection</p>
-                    <a href="#" class="button">Explore Our Beans</a>
-                </div>
+<div id="coffee-banner-container" style="height: 100vh; overflow: hidden;">
+    <div id="coffee-banner-slider" style="height: 300%; transition: transform 0.5s ease-out;">
+        <div class="coffee-banner" style="height: 33.33%; background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+            <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; text-align: center; color: white;">
+                <h1>Welcome to Coffee Collective</h1>
+                <p>Discover our premium coffee selection</p>
+                <a href="#" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Explore Our Beans</a>
             </div>
-            <div id="banner2" class="banner">
-                <div class="content">
-                    <h1>Artisanal Roasting</h1>
-                    <p>Experience the rich flavors of our carefully roasted beans</p>
-                    <a href="#" class="button">Learn Our Process</a>
-                </div>
+        </div>
+        <div class="coffee-banner" style="height: 33.33%; background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+            <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; text-align: center; color: white;">
+                <h1>Artisanal Roasting</h1>
+                <p>Experience the rich flavors of our carefully roasted beans</p>
+                <a href="#" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Learn Our Process</a>
             </div>
-            <div id="banner3" class="banner">
-                <div class="content">
-                    <h1>From Farm to Cup</h1>
-                    <p>Sustainably sourced and ethically produced coffee</p>
-                    <a href="#" class="button">Our Story</a>
-                </div>
+        </div>
+        <div class="coffee-banner" style="height: 33.33%; background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+            <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; text-align: center; color: white;">
+                <h1>From Farm to Cup</h1>
+                <p>Sustainably sourced and ethically produced coffee</p>
+                <a href="#" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Our Story</a>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.getElementById('slider');
-            const banners = document.querySelectorAll('.banner');
-            let currentBanner = 0;
-            let isScrolling = false;
+</div>
 
-            function slideTo(index) {
-                if (isScrolling) return;
-                isScrolling = true;
-                currentBanner = index;
-                slider.style.transform = `translateY(-${index * 33.33}%)`;
-                setTimeout(() => { isScrolling = false; }, 500); // Match transition duration
-            }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('coffee-banner-container');
+    const slider = document.getElementById('coffee-banner-slider');
+    const banners = document.querySelectorAll('.coffee-banner');
+    let currentBanner = 0;
+    let isScrolling = false;
 
-            function handleWheel(e) {
+    function slideTo(index) {
+        if (isScrolling) return;
+        isScrolling = true;
+        currentBanner = index;
+        slider.style.transform = `translateY(-${index * 33.33}%)`;
+        setTimeout(() => { isScrolling = false; }, 500);
+    }
+
+    function handleWheel(e) {
+        if (isScrolling) return;
+        if (e.deltaY > 0 && currentBanner < banners.length - 1) {
+            e.preventDefault();
+            slideTo(currentBanner + 1);
+        } else if (e.deltaY < 0 && currentBanner > 0) {
+            e.preventDefault();
+            slideTo(currentBanner - 1);
+        }
+    }
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
+    let touchStartY = 0;
+    container.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    });
+
+    container.addEventListener('touchmove', (e) => {
+        if (isScrolling) return;
+        const touchEndY = e.touches[0].clientY;
+        const diff = touchStartY - touchEndY;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentBanner < banners.length - 1) {
                 e.preventDefault();
-                if (isScrolling) return;
-                if (e.deltaY > 0 && currentBanner < banners.length - 1) {
-                    slideTo(currentBanner + 1);
-                } else if (e.deltaY < 0 && currentBanner > 0) {
-                    slideTo(currentBanner - 1);
-                }
-            }
-
-            // Wheel event
-            container.addEventListener('wheel', handleWheel, { passive: false });
-
-            // Touch events
-            let touchStartY = 0;
-            container.addEventListener('touchstart', (e) => {
-                touchStartY = e.touches[0].clientY;
-            });
-
-            container.addEventListener('touchmove', (e) => {
+                slideTo(currentBanner + 1);
+            } else if (diff < 0 && currentBanner > 0) {
                 e.preventDefault();
-                if (isScrolling) return;
-                const touchEndY = e.touches[0].clientY;
-                const diff = touchStartY - touchEndY;
-                if (Math.abs(diff) > 50) { // Threshold for swipe
-                    if (diff > 0 && currentBanner < banners.length - 1) {
-                        slideTo(currentBanner + 1);
-                    } else if (diff < 0 && currentBanner > 0) {
-                        slideTo(currentBanner - 1);
-                    }
-                    touchStartY = touchEndY;
-                }
-            }, { passive: false });
-        });
-    </script>
-</body>
-</html>
+                slideTo(currentBanner - 1);
+            }
+            touchStartY = touchEndY;
+        }
+    }, { passive: false });
+});
+</script>
