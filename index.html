@@ -12,7 +12,7 @@
             overflow-x: hidden;
         }
         .banner-container {
-            height: 300vh;
+            height: 3300px; /* 3 times the iframe height */
             position: relative;
         }
         .banner {
@@ -71,7 +71,10 @@
         let currentImageIndex = 0;
 
         function updateBackgroundImage() {
-            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            const scrollPosition = window.scrollY;
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercentage = (scrollPosition / totalHeight) * 100;
+            
             const imageIndex = Math.min(Math.floor(scrollPercentage / (100 / images.length)), images.length - 1);
             
             if (imageIndex !== currentImageIndex) {
@@ -84,7 +87,6 @@
         banner.style.backgroundImage = `url('${images[0]}')`;
 
         window.addEventListener('scroll', updateBackgroundImage);
-        // No need to call updateBackgroundImage() here as we've set the initial image
     </script>
 </body>
 </html>
