@@ -16,13 +16,13 @@
             position: relative;
         }
         .banner {
-            position: absolute;
-            top: 0;
-            left: 0;
             height: 100vh;
             width: 100%;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            position: sticky;
+            top: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -30,17 +30,6 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        #banner1 {
-            background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-        }
-        #banner2 {
-            background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-        }
-        #banner3 {
-            background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         }
         .content {
             background: rgba(0, 0, 0, 0.5);
@@ -63,21 +52,7 @@
 </head>
 <body>
     <div class="banner-container">
-        <div id="banner1" class="banner">
-            <div class="content">
-                <h1>MANGUU COFFEE</h1>
-                <p>MANGUU COFFEE</p>
-                <a href="#" class="button">MANGUU COFFEE</a>
-            </div>
-        </div>
-        <div id="banner2" class="banner">
-            <div class="content">
-                <h1>MANGUU COFFEE</h1>
-                <p>MANGUU COFFEE</p>
-                <a href="#" class="button">MANGUU COFFEE</a>
-            </div>
-        </div>
-        <div id="banner3" class="banner">
+        <div id="banner" class="banner">
             <div class="content">
                 <h1>MANGUU COFFEE</h1>
                 <p>MANGUU COFFEE</p>
@@ -87,23 +62,29 @@
     </div>
 
     <script>
-        const banners = document.querySelectorAll('.banner');
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
+        const banner = document.getElementById('banner');
+        const images = [
+            'https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        ];
+        let currentImageIndex = 0;
 
-            // Determine which banner should be visible based on the scroll position
-            banners.forEach((banner, index) => {
-                if (scrollPosition >= index * windowHeight && scrollPosition < (index + 1) * windowHeight) {
-                    banner.style.opacity = '1';
-                } else {
-                    banner.style.opacity = '0';
-                }
-            });
-        });
+        function updateBackgroundImage() {
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            const imageIndex = Math.min(Math.floor(scrollPercentage / (100 / images.length)), images.length - 1);
+            
+            if (imageIndex !== currentImageIndex) {
+                currentImageIndex = imageIndex;
+                banner.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+            }
+        }
 
-        // Initial state - show the first banner
-        banners[0].style.opacity = '1';
+        // Set initial background image
+        banner.style.backgroundImage = `url('${images[0]}')`;
+
+        window.addEventListener('scroll', updateBackgroundImage);
+        // No need to call updateBackgroundImage() here as we've set the initial image
     </script>
 </body>
 </html>
