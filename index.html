@@ -3,90 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Bean Scrolling Banner</title>
+    <title>Advanced Coffee Bean Scrolling Banner</title>
     <style>
-        body, html {
+        /* Reset and base styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body, html {
             height: 100%;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
             overflow-x: hidden;
         }
-        .banner-container {
-            height: 3300px; /* 3 times the iframe height */
+
+        /* Scrolling container */
+        .scroll-container {
+            height: 300vh; /* Adjust based on the number of sections */
             position: relative;
         }
+
+        /* Banner styles */
         .banner {
             height: 100vh;
             width: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             position: sticky;
             top: 0;
+            overflow: hidden;
+        }
+
+        .banner-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .banner-image.active {
+            opacity: 1;
+        }
+
+        /* Content styles */
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            color: white;
-            font-family: Arial, sans-serif;
+            align-items: center;
             text-align: center;
-        }
-        .content {
-            background: rgba(0, 0, 0, 0.5);
+            color: white;
             padding: 20px;
+        }
+
+        .content-wrapper {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
             border-radius: 10px;
             max-width: 80%;
         }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
         .button {
-            margin-top: 20px;
+            display: inline-block;
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background-color: white;
         }
     </style>
 </head>
 <body>
-    <div class="banner-container">
-        <div id="banner" class="banner">
+    <div class="scroll-container">
+        <div class="banner" id="banner">
+            <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1646438596321-5cded1891b62?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+            <div class="banner-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1683133250018-dd82351d43bf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+            <div class="banner-image" style="background-image: url('https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
             <div class="content">
-                <h1>MANGUU COFFEE</h1>
-                <p>MANGUU COFFEE</p>
-                <a href="#" class="button">MANGUU COFFEE</a>
+                <div class="content-wrapper">
+                    <h1>MANGUU COFFEE</h1>
+                    <p>Experience the rich flavors of our premium coffee beans</p>
+                    <a href="#" class="button">Learn More</a>
+                </div>
             </div>
         </div>
     </div>
+    <div class="nav-dots" id="navDots"></div>
 
     <script>
-        const banner = document.getElementById('banner');
-        const images = [
-            'https://athome.starbucks.com/sites/default/files/2021-04/CAH_SBX_Learn_FarmerSupport_ImageLg_0.jpg',
-            'https://www.technoserve.org/wp-content/uploads/2014/04/our-work_sector_coffee-hero-2000x900.jpg',
-            'https://images.unsplash.com/photo-1645480064897-4e4755b75144?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        ];
-        let currentImageIndex = 0;
+        document.addEventListener('DOMContentLoaded', function() {
+            const banner = document.getElementById('banner');
+            const bannerImages = banner.querySelectorAll('.banner-image');
+            const navDots = document.getElementById('navDots');
+            const totalSections = bannerImages.length;
 
-        function updateBackgroundImage() {
-            const scrollPosition = window.scrollY;
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercentage = (scrollPosition / totalHeight) * 100;
-            
-            const imageIndex = Math.min(Math.floor(scrollPercentage / (100 / images.length)), images.length - 1);
-            
-            if (imageIndex !== currentImageIndex) {
-                currentImageIndex = imageIndex;
-                banner.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+            // Create navigation dots
+            bannerImages.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('nav-dot');
+                dot.addEventListener('click', () => scrollToSection(index));
+                navDots.appendChild(dot);
+            });
+
+            const dots = navDots.querySelectorAll('.nav-dot');
+
+            function scrollToSection(index) {
+                const scrollPosition = index * window.innerHeight;
+                window.scrollTo({
+                    top: scrollPosition,
+                    behavior: 'smooth'
+                });
             }
-        }
 
-        // Set initial background image
-        banner.style.backgroundImage = `url('${images[0]}')`;
+            function updateActiveSection() {
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const currentIndex = Math.round(scrollPosition / windowHeight);
 
-        window.addEventListener('scroll', updateBackgroundImage);
+                bannerImages.forEach((image, index) => {
+                    if (index === currentIndex) {
+                        image.classList.add('active');
+                        dots[index].classList.add('active');
+                    } else {
+                        image.classList.remove('active');
+                        dots[index].classList.remove('active');
+                    }
+                });
+            }
+
+            // Initial update
+            updateActiveSection();
+
+            // Throttle function to limit the rate at which updateActiveSection gets called
+            function throttle(func, limit) {
+                let inThrottle;
+                return function() {
+                    const args = arguments;
+                    const context = this;
+                    if (!inThrottle) {
+                        func.apply(context, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit);
+                    }
+                }
+            }
+
+            // Add scroll event listener with throttling
+            window.addEventListener('scroll', throttle(updateActiveSection, 100));
+
+            // Update on resize
+            window.addEventListener('resize', updateActiveSection);
+        });
     </script>
 </body>
 </html>
