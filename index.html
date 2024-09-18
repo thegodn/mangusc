@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Coffee Banner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
+            font-family: 'Roboto Condensed', sans-serif;
         }
         #coffee-banner-container {
             height: 100vh;
@@ -30,32 +32,43 @@
             justify-content: center;
         }
         .content {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
             border-radius: 10px;
             text-align: center;
             color: white;
             max-width: 80%;
         }
+        .content h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
         .button {
             display: inline-block;
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-transform: uppercase;
         }
         @media (max-width: 768px) {
             .content h1 {
-                font-size: 1.5em;
+                font-size: 2em;
             }
             .content p {
-                font-size: 0.9em;
+                font-size: 1em;
             }
             .button {
-                padding: 8px 16px;
-                font-size: 0.9em;
+                padding: 10px 20px;
+                font-size: 1em;
             }
         }
     </style>
